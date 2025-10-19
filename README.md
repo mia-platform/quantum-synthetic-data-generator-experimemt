@@ -82,11 +82,11 @@ pip3 install qsharp qsharp-widgets jupyter
 
 ```bash
 # Clone the repository
-git clone <repository-url>
-cd quantum-hello-world
+git clone git@github.com:mia-platform/quantum-synthetic-data-generator-experimemt.git
+cd quantum-synthetic-data-generator-experimemt
 
 # Or if downloading manually, extract to a folder and navigate to it
-cd path/to/quantum-hello-world
+cd path/to/quantum-synthetic-data-generator-experimemt
 ```
 
 ### Step 3: Verify Project Structure
