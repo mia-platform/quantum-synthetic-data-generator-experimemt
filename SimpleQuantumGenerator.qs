@@ -31,7 +31,7 @@ struct DataSample {
 /// Simple tutorial entry point for learning quantum synthetic data generation
 /// Demonstrates fundamental concepts with simple, easy-to-understand examples
 @EntryPoint()
-operation SimpleQuantumDataGenerator() : DataSample[] {
+operation SimpleQuantumDataGenerator() : Unit {
     Message("=== Simple Quantum Data Generator (Tutorial) ===");
     Message("This example demonstrates fundamental quantum data generation concepts.");
     Message("For advanced techniques, run QuantumDataGenerator.qs");
@@ -52,7 +52,6 @@ operation SimpleQuantumDataGenerator() : DataSample[] {
     Message("");
     Message($"✓ Successfully generated {Length(samples)} samples using basic quantum operations!");
     Message("🎓 You've completed the basic tutorial. Ready for advanced techniques?");
-    return samples;
 }
 
 /// # Summary

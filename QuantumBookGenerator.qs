@@ -27,7 +27,7 @@ struct BookSample {
 /// # Summary
 /// Main entry point that generates synthetic book data samples
 @EntryPoint()
-operation GenerateQuantumBookData() : BookSample[] {
+operation GenerateQuantumBookData() : Unit {
     Message("Starting Quantum Book Data Generation...");
     
     let sampleSize = 50; // Number of books to generate
@@ -43,7 +43,13 @@ operation GenerateQuantumBookData() : BookSample[] {
     }
     
     Message($"Successfully generated {Length(books)} synthetic books using quantum techniques!");
-    return books;
+    
+    // Output the generated books as messages
+    Message("Generated Books:");
+    for i in 0..Length(books)-1 {
+        let book : BookSample = books[i];
+        Message($"Book {i+1}: '{book.Title}' ({book.Genre}) - {book.PublishedYear} - ISBN: {book.Isbn}");
+    }
 }
 
 /// # Summary
@@ -336,14 +342,23 @@ operation GenerateQuantumId(seed : Int) : String {
     let results = MeasureEachZ(qubits);
     ResetAll(qubits);
     
-    // Convert to hex-like ID
+    // Convert to hex-like ID using classical approach
     mutable idString = "";
     for result in results {
-        let digit = result == One ? 1 | 0;
-        set idString += $"{digit}";
+        if result == One {
+            set idString += "1";
+        } else {
+            set idString += "0";
+        }
     }
     
     return $"68f226aa98254bc1f6d51c{idString}";
+}
+
+/// # Summary
+/// Helper function to get private/draft state
+function GetPrivateDraftState(isPrivate : Int) : String {
+    if isPrivate == 1 { return "PRIVATE"; } else { return "DRAFT"; }
 }
 
 /// # Summary
@@ -363,8 +378,18 @@ operation GenerateQuantumState() : String {
         use subQubit = Qubit();
         H(subQubit);
         let subResult = MResetZ(subQubit);
-        return subResult == Zero ? "PRIVATE" | "DRAFT";
+        let isPrivate = if subResult == One { 1 } else { 0 };
+        return GetPrivateDraftState(isPrivate);
     }
+}
+
+/// # Summary
+/// Helper function to map index to creator ID
+function GetCreatorIdByIndex(index : Int) : String {
+    if index == 0 { return "giulio"; }
+    elif index == 1 { return "stefano"; }
+    elif index == 2 { return "alice"; }
+    else { return "marco"; }
 }
 
 /// # Summary
@@ -378,12 +403,20 @@ operation GenerateQuantumCreatorId() : String {
     
     ResetAll(qubits);
     
-    if index == 0 { return "giulio"; }
-    elif index == 1 { return "stefano"; }
+    let creatorId = GetCreatorIdByIndex(index);
+    return creatorId;
+}
+
+/// # Summary
+/// Helper function to map index to updater ID
+function GetUpdaterIdByIndex(index : Int) : String {
+    if index == 0 { return "stefano"; }
+    elif index == 1 { return "giulio"; }
     elif index == 2 { return "alice"; }
     else { return "marco"; }
 }
 
+/// # Summary
 /// # Summary
 /// Generates updater ID using quantum selection
 operation GenerateQuantumUpdaterId() : String {
@@ -395,8 +428,6 @@ operation GenerateQuantumUpdaterId() : String {
     
     ResetAll(qubits);
     
-    if index == 0 { return "stefano"; }
-    elif index == 1 { return "giulio"; }
-    elif index == 2 { return "alice"; }
-    else { return "marco"; }
+    let updaterId = GetUpdaterIdByIndex(index);
+    return updaterId;
 }

@@ -32,7 +32,7 @@ struct QuantumDataSample {
 /// # Summary
 /// Advanced quantum synthetic data generator with configurable parameters
 @EntryPoint()
-operation AdvancedQuantumDataGenerator() : QuantumDataSample[] {
+operation AdvancedQuantumDataGenerator() : Unit {
     Message("=== Advanced Quantum Synthetic Data Generator ===");
     
     let config = DataConfig(20, true, 0.1);
@@ -41,7 +41,7 @@ operation AdvancedQuantumDataGenerator() : QuantumDataSample[] {
     mutable samples = [];
     
     for i in 0..config.SampleSize-1 {
-        let sample = GenerateAdvancedSample(i, config);
+        let sample : QuantumDataSample = GenerateAdvancedSample(i, config);
         set samples += [sample];
         
         if i % 5 == 0 {
@@ -50,9 +50,14 @@ operation AdvancedQuantumDataGenerator() : QuantumDataSample[] {
     }
     
     Message($"✓ Successfully generated {Length(samples)} quantum synthetic data samples!");
-    AnalyzeDataDistribution(samples);
-    
-    return samples;
+    // Display sample results
+    Message("Sample of generated data:");
+    for i in 0..2 {
+        if i < Length(samples) {
+            let sample : QuantumDataSample = samples[i];
+            Message($"Sample {i+1}: Age={sample.Age}, Income={sample.Income}, Category={sample.Category}");
+        }
+    }
 }
 
 /// # Summary
@@ -161,7 +166,8 @@ operation GenerateQuantumWalkCategory() : String {
     ResetAll(walker);
     
     // Map walk position to categories with quantum bias
-    let totalResult = position + (coinResult == One ? 4 | 0);
+    let biasValue = if coinResult == One { 4 } else { 0 };
+    let totalResult = position + biasValue;
     
     if totalResult < 2 {
         return "A";
@@ -239,7 +245,8 @@ operation GenerateQuantumFingerprint(id : Int) : Int[] {
     
     mutable fingerprint = [];
     for result in results {
-        set fingerprint += [result == One ? 1 | 0];
+        let bit = if result == One { 1 } else { 0 };
+        set fingerprint += [bit];
     }
     
     return fingerprint;
@@ -327,7 +334,8 @@ function AnalyzeDataDistribution(samples : QuantumDataSample[]) : Unit {
     for sample in samples {
         set ageSum += sample.Age;
         set incomeSum += sample.Income;
-        set trueFlagCnt += sample.BinaryFlag ? 1 | 0;
+        let flagValue = if sample.BinaryFlag { 1 } else { 0 };
+        set trueFlagCnt += flagValue;
         
         if sample.Category == "A" { set categoryACnt += 1; }
         elif sample.Category == "B" { set categoryBCnt += 1; }
