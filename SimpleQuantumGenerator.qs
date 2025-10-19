@@ -1,6 +1,14 @@
-/// # Quantum Synthetic Data Generator
-/// This Q# program generates synthetic data using quantum superposition and entanglement
-/// to create realistic data distributions based on a JSON configuration.
+/// # Simple Quantum Data Generator (Tutorial Example)
+/// This is a simplified introduction to quantum data generation concepts using basic
+/// quantum superposition and entanglement techniques for generic data types.
+/// 
+/// Learning Path:
+/// 1. Start here for basic quantum data generation concepts
+/// 2. Progress to QuantumDataGenerator.qs for advanced techniques  
+/// 3. Apply to real use cases with QuantumBookGenerator.qs
+///
+/// This example demonstrates fundamental quantum operations for synthetic data creation
+/// with simple data types (age, income, categories) before moving to domain-specific applications.
 
 import Std.Arrays.*;
 import Std.Canon.*;
@@ -20,63 +28,75 @@ struct DataSample {
 }
 
 /// # Summary
-/// Main entry point that generates synthetic data samples
+/// Simple tutorial entry point for learning quantum synthetic data generation
+/// Demonstrates fundamental concepts with simple, easy-to-understand examples
 @EntryPoint()
-operation GenerateQuantumSyntheticData() : DataSample[] {
-    Message("Starting Quantum Synthetic Data Generation...");
+operation SimpleQuantumDataGenerator() : DataSample[] {
+    Message("=== Simple Quantum Data Generator (Tutorial) ===");
+    Message("This example demonstrates fundamental quantum data generation concepts.");
+    Message("For advanced techniques, run QuantumDataGenerator.qs");
+    Message("For real-world applications, see QuantumBookGenerator.qs");
+    Message("");
     
-    let sampleSize = 10; // Number of samples to generate
+    let sampleSize = 10; // Small sample size for tutorial clarity
     mutable samples = [];
+    
+    Message("Generating samples using basic quantum techniques...");
     
     for i in 0..sampleSize-1 {
         let sample = GenerateSingleSample(i);
         set samples += [sample];
-        Message($"Generated sample {i + 1}: Age={sample.Age}, Income={sample.Income}, Category={sample.Category}, Flag={sample.BinaryFlag}");
+        Message($"Sample {i + 1}: Age={sample.Age}, Income=${sample.Income}, Category={sample.Category}, Flag={sample.BinaryFlag}");
     }
     
-    Message($"Successfully generated {Length(samples)} synthetic data samples using quantum techniques!");
+    Message("");
+    Message($"✓ Successfully generated {Length(samples)} samples using basic quantum operations!");
+    Message("🎓 You've completed the basic tutorial. Ready for advanced techniques?");
     return samples;
 }
 
 /// # Summary
-/// Generates a single synthetic data sample using quantum operations
+/// Generates a single synthetic data sample using basic quantum operations
+/// This demonstrates the core concepts of quantum data generation in simple steps
 operation GenerateSingleSample(seed : Int) : DataSample {
-    // Generate age using quantum superposition (18-80 years)
+    // 🎓 Tutorial Step 1: Generate age using quantum superposition (18-80 years)
     let age = GenerateQuantumAge();
     
-    // Generate income with entanglement to age (correlated feature)
+    // 🎓 Tutorial Step 2: Generate income with entanglement to age (correlated feature)
     let income = GenerateQuantumIncomeCorrelated(age);
     
-    // Generate categorical data using quantum superposition
+    // 🎓 Tutorial Step 3: Generate categorical data using quantum superposition
     let category = GenerateQuantumCategory();
     
-    // Generate binary flag with quantum probability
+    // 🎓 Tutorial Step 4: Generate binary flag with quantum probability
     let binaryFlag = GenerateQuantumBinaryFlag();
     
     return DataSample(age, income, category, binaryFlag);
 }
 
 /// # Summary
-/// Generates age using quantum superposition and measurement
-/// Simulates a normal distribution around age 40-50
+/// 🎓 TUTORIAL: Basic quantum age generation using superposition
+/// Demonstrates how quantum superposition creates probabilistic distributions
+/// This is the foundation concept for all quantum data generation
 operation GenerateQuantumAge() : Int {
-    use qubits = Qubit[6]; // 6 qubits can represent 0-63
+    use qubits = Qubit[6]; // 6 qubits can represent 0-63 (tutorial: start simple)
     
-    // Create superposition states biased toward middle ages
+    // 🎓 Step 1: Create superposition states (qubits in |0⟩+|1⟩ state)
     H(qubits[0]);
     H(qubits[1]);
     H(qubits[2]);
     
-    // Add bias toward middle values using controlled rotations
+    // 🎓 Step 2: Add bias toward middle values using controlled rotations
+    // This creates a more realistic age distribution (not completely random)
     Controlled Ry([qubits[0]], (PI() / 3.0, qubits[3]));
     Controlled Ry([qubits[1]], (PI() / 4.0, qubits[4]));
     Controlled Ry([qubits[2]], (PI() / 6.0, qubits[5]));
     
-    // Measure and convert to age range
+    // 🎓 Step 3: Measure quantum states to get classical result
     let results = MeasureEachZ(qubits);
     let rawValue = ResultArrayAsInt(results);
     
-    // Map to age range 18-80
+    // 🎓 Step 4: Map quantum measurement to realistic age range 18-80
     let age = 18 + (rawValue % 63);
     
     ResetAll(qubits);
@@ -84,33 +104,37 @@ operation GenerateQuantumAge() : Int {
 }
 
 /// # Summary
-/// Generates income correlated with age using quantum entanglement
+/// 🎓 TUTORIAL: Quantum entanglement for correlated data generation
+/// Demonstrates how quantum entanglement creates natural correlations between features
+/// This is a key advantage of quantum data generation over classical random methods
 operation GenerateQuantumIncomeCorrelated(age : Int) : Int {
-    use qubits = Qubit[8]; // 8 qubits for income range
+    use qubits = Qubit[8]; // 8 qubits for income range (tutorial: manageable size)
     
-    // Create base superposition
+    // 🎓 Step 1: Create base superposition for randomness
     for i in 0..3 {
         H(qubits[i]);
     }
     
-    // Create entanglement based on age to simulate correlation
+    // 🎓 Step 2: Create correlation based on age input
+    // This demonstrates how quantum systems can naturally encode relationships
     let ageNormalized = IntAsDouble(age - 18) / 62.0; // Normalize age to 0-1
     let correlationAngle = ageNormalized * PI() / 2.0;
     
-    // Apply age-correlated rotations
+    // 🎓 Step 3: Apply age-correlated rotations (older age → different income distribution)
     Ry(correlationAngle, qubits[4]);
     Ry(correlationAngle * 0.8, qubits[5]);
     
-    // Add entanglement between age-influenced qubits and income qubits
+    // 🎓 Step 4: Create entanglement between age-influenced qubits and income qubits
+    // This is where the "quantum magic" happens - natural correlation!
     for i in 0..3 {
         CNOT(qubits[4], qubits[i]);
     }
     
-    // Measure and convert to income
+    // 🎓 Step 5: Measure entangled state to get correlated result
     let results = MeasureEachZ(qubits);
     let rawValue = ResultArrayAsInt(results);
     
-    // Map to income range 20,000-150,000 with age correlation
+    // 🎓 Step 6: Map to realistic income range with age correlation
     let baseIncome = 20000 + (rawValue % 130000);
     let ageBonus = IntAsDouble(age - 18) * 500.0; // Older people tend to earn more
     let income = baseIncome + Truncate(ageBonus);
