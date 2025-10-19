@@ -1,5 +1,7 @@
 # Quantum Book Generation System
 
+> 📖 **For detailed technical explanations and quantum algorithms implementation, see [HOWITWORK.md](HOWITWORK.md)**
+
 A sophisticated quantum computing application that generates realistic synthetic book datasets using quantum superposition, entanglement, and advanced quantum algorithms. This project demonstrates how quantum computing can create synthetic data with natural correlations and true randomness that classical systems cannot achieve.
 
 ## 🌟 Features
