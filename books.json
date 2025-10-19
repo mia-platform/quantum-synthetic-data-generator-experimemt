@@ -1,0 +1,42 @@
+[
+  {
+    "_id": "68f226aa98254bc1f6d51cbf",
+    "title": "The Lord of The Rings",
+    "isbn": "89438833834943",
+    "publishedYear": 1978,
+    "genre": "Fantasy",
+    "description": "A high-fantasy novel written by J.R.R. Tolkien.",
+    "__STATE__": "PUBLIC",
+    "creatorId": "giulio",
+    "updaterId": "stefano",
+    "updatedAt": "2025-10-17T11:21:14.522Z",
+    "createdAt": "2025-10-17T11:21:14.522Z"
+  },
+  {
+    "_id": "68f226aa98254bc1f6d51cc0",
+    "title": "1984",
+    "isbn": "9780451524935",
+    "publishedYear": 1949,
+    "genre": "Dystopian",
+    "description": "A novel by George Orwell about a totalitarian regime.",
+    "__STATE__": "PUBLIC",
+    "creatorId": "giulio",
+    "updaterId": "stefano",
+    "updatedAt": "2025-10-17T11:21:14.522Z",
+    "createdAt": "2025-10-17T11:21:14.522Z"
+  },
+  {
+    "_id": "68f226aa98254bc1f6d51cc1",
+    "title": "To Kill a Mockingbird",
+    "isbn": "9780061120084",
+    "publishedYear": 1960,
+    "genre": "Fiction",
+    "description": "A novel by Harper Lee about racial injustice in the Deep South.",
+    "__STATE__": "PUBLIC",
+    "creatorId": "giulio",
+    "updaterId": "stefano",
+    "updatedAt": "2025-10-17T11:21:14.522Z",
+    "createdAt": "2025-10-17T11:21:14.522Z"
+  }
+
+]
